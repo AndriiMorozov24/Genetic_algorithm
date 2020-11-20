@@ -8,7 +8,7 @@ library(rlist)
 
 N = nrow(df) # number of tasks
 NM = ncol(df) # number of machines 
-POP = 10 # number of "pearsons" in population
+POP = 10 # number of "persons" in population
 k = 10 # number of iterations
 p.mut <<- 0.05 # probability of the mutation
 p.recomb <<- 0.75 # probability of the recombination
@@ -160,7 +160,7 @@ Genetic <- function(Population){
     # temp <- Mutation(.crossOX) #mutacja
     tempF <- TournamentSelection(temp) # select the best kids
     test <- c(Population,tempF) # add them to parents
-    final <- TournamentSelection(test) # select size = POP best "pearsons"
+    final <- TournamentSelection(test) # select size = POP best "persons"
   }else{ # if not recombination
     temp <- Mutation(tempPOP)
     test <- c(Population,temp)
@@ -222,7 +222,7 @@ main <- function(.FirstPopulation){
 
 cat("Current file = ", name, "\n", file = "output.txt", append = TRUE)
 cat("Output for the number of iterations = ",k, "\n", file = "output.txt", append = TRUE)
-cat("Output for the number of pearsons in population = ",POP, "\n", file = "output.txt", append = TRUE)
+cat("Output for the number of persons in population = ",POP, "\n", file = "output.txt", append = TRUE)
 FirstPopulation <- FirstGenerationOFPopulation() # generate first population
 curMIN <<- BestInPopulation(FirstPopulation) # the best schedule time for the first population
 cat("Optimal schedule time for the start population = ",curMIN, "\n", file = "output.txt", append = TRUE)
