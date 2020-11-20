@@ -1,6 +1,5 @@
 # Genetic_algorithm
- Genetic algorithm for the flow-shop scheduling problem
-andrii.moroozv23@gmail.com
+ Genetic algorithm for the flow-shop scheduling problem by andrii.morozov23@gmail.com
 
 Enter name of your input file. (3rd line) To start calculations, provide data (4th line), it must be .csv format. Rows must contain units of time for particular task on particular machine. Columns contain machine number. Each task should go from machine 1 to machine N (depends how many you set). Task on particular machine can be done only if machine is free. Fitness function (27th line) take care of it (makespan).
 
