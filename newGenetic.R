@@ -3,7 +3,7 @@ if (!is.null(WD)) setwd(WD)
 name <- "Dane_S2_200_20.csv"
 df <- read.csv(name, sep = ";", row.names = "Zadanie")
 
-library(ecr) # package for PMX i OX crossovering
+library(ecr) # package for PMX and OX crossovering
 library(rlist)
 
 N = nrow(df) # number of tasks
