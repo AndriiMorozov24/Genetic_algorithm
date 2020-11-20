@@ -1,14 +1,15 @@
 (WD <- getwd())
 if (!is.null(WD)) setwd(WD)
-df <- read.csv("Dane_S2_200_20.csv", sep = ";", row.names = "Zadanie")
+name <- "Dane_S2_200_20.csv"
+df <- read.csv(name, sep = ";", row.names = "Zadanie")
 
 library(ecr) # package for PMX i OX crossovering
 library(rlist)
 
 N = nrow(df) # number of tasks
 NM = ncol(df) # number of machines 
-POP = 100 # number of "pearsons" in population
-k = 1000 # number of iterations
+POP = 10 # number of "pearsons" in population
+k = 10 # number of iterations
 p.mut <<- 0.05 # probability of the mutation
 p.recomb <<- 0.75 # probability of the recombination
 
@@ -194,10 +195,10 @@ main <- function(.FirstPopulation){
       dE <- tempMIN - curMIN 
       if(dE < 0){ # if we found better scheduling time
         curMIN <<- tempMIN # override with the new optimal scheduling time
-        cat("Currently the best = ", curMIN)
+        cat("Currently the best = ", curMIN,"\n", file = "output.txt", append = TRUE)
         FinalSchedule <- BestScheduling(.new) # save schedule
       }else{
-        cat("No better solution for the generation = ", i)
+        cat("No better solution for the generation = ", i, "\n", file = "output.txt", append = TRUE)
       }
     }else{
       if(i >= (k*0.2)){ # the point at which we began to change the probability of mutation and recombination
@@ -209,21 +210,22 @@ main <- function(.FirstPopulation){
       dE <- tempMIN - curMIN
       if(dE < 0){
         curMIN <<- tempMIN
-        cat("Currently the best  = ", curMIN)
+        cat("Currently the best = ", curMIN,"\n", file = "output.txt", append = TRUE)
         FinalSchedule <- BestScheduling(.new)
       }else{
-        cat("No better solution for the generation = ", i)
+        cat("No better solution for the generation = ", i, "\n", file = "output.txt", append = TRUE)
       }
     }
-    cat("\n")
   }
   return(FinalSchedule)
 }
 
+cat("Current file = ", name, "\n", file = "output.txt", append = TRUE)
+cat("Output for the number of iterations = ",k, "\n", file = "output.txt", append = TRUE)
+cat("Output for the number of pearsons in population = ",POP, "\n", file = "output.txt", append = TRUE)
 FirstPopulation <- FirstGenerationOFPopulation() # generate first population
 curMIN <<- BestInPopulation(FirstPopulation) # the best schedule time for the first population
-cat(curMIN, "\n")
+cat("Optimal schedule time for the start population = ",curMIN, "\n", file = "output.txt", append = TRUE)
 .go <- main(FirstPopulation) # run program
-.FinalSchedule <- data.frame(.go) # final schedule
-cat("Optimal schedule time = ", curMIN, "\n") 
-.FinalSchedule
+cat("Optimal schedule", "\n", file = "output.txt", append = TRUE)
+capture.output(.go, file = "output.txt", append = TRUE)

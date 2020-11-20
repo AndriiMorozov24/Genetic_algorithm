@@ -1,0 +1,66 @@
+Current file =  Dane_S2_200_20.csv 
+Output for the number of iterations =  10 
+Output for the number of pearsons in population =  10 
+Optimal schedule time for the start population =  13572 
+Currently the best =  13559 
+Currently the best =  13542 
+Currently the best =  13440 
+No better solution for the generation =  4 
+Currently the best =  13336 
+Currently the best =  13289 
+No better solution for the generation =  7 
+Currently the best =  13244 
+Currently the best =  13241 
+Currently the best =  13206 
+Optimal schedule 
+  [1]  73 114   1  36  30 140 132  27  78   9  85 149 200 168  76  69  51 103 139 107 151 184  49 173  67 153  99  29 100 191  47  65  66
+ [34] 155 156 145  18  90  32  54  12  11  98 195  86 115 167 160 135 163  23  44  93  91  19  21 161 158  87  25 116  89   4 180 111 105
+ [67]  62 192  37   5 124  40 152  61  57  42 109 108  10  81  50 181  14 189 177 165  52  63 175  77 137 196  82 138  45 134 123  17  58
+[100]  41 185  88  20  64  34   7 122  74  94  96 171  15 169  53 162 129 121  83 154  56 159 190 117  68 119  46 174 199 131   8 146 176
+[133]  55 179  13 142 118 125 130 182  33 141   3 150  28  80  16  39  43 188 128  84  79 143  72 166 110  35 127 113 148   6 126 186  22
+[166]  24  71 178 104 193 172 101 120 133 157 106 183 170  31 187   2 112 164  95 136 102  48  26  59  38 197  70  75  92 198 194  97 144
+[199] 147  60
+Current file =  Dane_S2_200_20.csv 
+Output for the number of iterations =  10 
+Output for the number of pearsons in population =  10 
+Optimal schedule time for the start population =  13463 
+Currently the best =  13364 
+No better solution for the generation =  2 
+Currently the best =  13220 
+No better solution for the generation =  4 
+No better solution for the generation =  5 
+No better solution for the generation =  6 
+No better solution for the generation =  7 
+No better solution for the generation =  8 
+No better solution for the generation =  9 
+No better solution for the generation =  10 
+Optimal schedule 
+  [1]  76  56  54 113  33 161 166 129 139  55   4 118  29 171  37  46  44 107 167 133 169  67  20  10  97  85  31 174  65  53  51  94  27
+ [34]  23  68 197 116 192 178 181  99 101 185 173  60  90  21 138  52   9   3  24 117 200 103   6  89 146 145  66 126  80  42  36   5  72
+ [67]  78 179   1  28 110  75  48 172  14  57 165  17   2  92 159 147 121 141 122 104 135 105  71  77 158 195  16 109  79  59  91  63 194
+[100] 163 193 151 106  82 130  43  50  81 189 191 127  18  87 115  61  70 131 100  49 157 168 108 196  86 155 112  73 183 150 152 188  39
+[133] 190 175  25 125 149 102  58 140  38 124  88  74  11  45  47  12  41 186 199  15 170 143 148 177 114 176 111   7 144  93  98 198 154
+[166] 187  62  32  96  13 180   8  83 182  64 120  69  84 160  22 164 119 123  40 162 137 134  26  95  30 128 153 132 156 142 184  35  34
+[199] 136  19
+Current file =  Dane_S2_200_20.csv 
+Output for the number of iterations =  10 
+Output for the number of pearsons in population =  10 
+Optimal schedule time for the start population =  13523 
+Currently the best =  13261 
+No better solution for the generation =  2 
+No better solution for the generation =  3 
+No better solution for the generation =  4 
+No better solution for the generation =  5 
+No better solution for the generation =  6 
+No better solution for the generation =  7 
+No better solution for the generation =  8 
+No better solution for the generation =  9 
+No better solution for the generation =  10 
+Optimal schedule 
+  [1] 159 171 151  37 153 191  32 118  63 120  93 168  80 126  60  72 150  99  84 119 195  29  23  59  46 184  73 181 170  90 183  30 135
+ [34] 186  40 169 136 172 155 197 134 137  47  12 190 199 192  28   8  94  97  35   2 143  43  36 162 121   4 116 141 109  17 123 193 160
+ [67] 128 163  51 129  61  11  15  39  41  34 182  14  77 107 196 176 185  95  27 157 130 175  71 165 177  65  57 173 194  31 114   7  69
+[100]  92 142  55  21 101  66   1  13 180  19  62 106 167 112 102  58 105  48  45 154 138   9  64  81  50  10 139  20  67  88 122 127  42
+[133]  89 152  79 147 149 156  24 108  25  26  75 187 161 104   3  53 117 148 131  38  16 125  22 110 115 146  18  49  91  96 144  83  56
+[166] 124  70  85  33  82  44 133 158 113 164  98 140  76  68 178   5   6 132  86 189 174 179 166  74 188 145  87  52 111 100 103 200  54
+[199] 198  78
