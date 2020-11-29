@@ -11,33 +11,18 @@ nmain <- function(.name,.k,.POP){
   POP = .POP # number of "persons" in population
   k = .k # number of iterations
   p.mut <<- 0.05 # probability of the mutation
-  p.recomb <<- 0.75 # probability of the recombination
-  
-  ListFromListOfList <- function(Population){
-    temp <- list()
-    for(i in 1:length(Population)){
-      temp <- list.append(temp,Population[[i]][[1]],Population[[i]][[2]])
-    }
-    return(temp)
-  } # transform list of lists to single list
+  p.recomb <<- 0.8 # probability of the recombination
   
   Fitness <- function(.vector){
-    temp <- rep(0,NM) # how much time each machine will work with given schedule
-    for (i in 1:N){
-      ind <- .vector[i] # number of current task
-      for(j in 1:NM){
-        if (j!=1) { # for other machines
-          if (temp[j] < temp[j-1]){ # calculating "makespan"
-            temp[j] <- temp[j-1] + df[[j]][[ind]] # starting time of the next task on the machine [j]
-          }else {
-            temp[j] <- temp[j] + df[[j]][[ind]] # starting time of the next task on the machine [j]
-          }
-        }else{ # for the first machine
-          temp[j] <- temp[j] + df[[j]][[ind]] # starting time of the next task on the first machine
-        }
+    sum <- 0
+    for(i in 1:N){
+      if(i != N){
+        sum <- sum + df[[.vector[i]]][.vector[i+1]]
+      }else{
+        sum <- sum + df[[.vector[i]]][.vector[1]]
       }
     }
-    return(max(temp)) # we are interested to accomplish all tasks, so we choose max of time 
+    return(sum)
   } 
   
   FirstGenerationOFPopulation <- function(){
@@ -119,27 +104,33 @@ nmain <- function(.name,.k,.POP){
     return(.crossOX)
   } # Ordered-Crossover (OX) recombinator.
   #==========================================
-  Swap <- function(vectorM.,vector.){ 
-    for (j in 1:N){
-      if (vectorM.[j] == vector.[1]){
-        Find <- j
-      }
-      if (vectorM.[j] == vector.[2]){
-        Sind <- j
-      }
+  Swap <- function(vector) {
+    tempR <- sample(1:length(vector), 2, replace = FALSE)
+    index <- which(vector %in% tempR)
+    if((index[1]==1) && (index[2]==length(vector))){
+      final <- rev(vector)
+    }else if(index[1]==1){
+      temp2 <- list.subset(vector, c((index[2]+1):length(vector)))
+      .rev <- rev(list.subset(vector, c(index[1]:index[2])))
+      final <- c(.rev,temp2)
+    }else if(index[2]==length(vector)){
+      temp1 <- list.subset(vector, c(1:(index[1]-1)))
+      .rev <- rev(list.subset(vector, c(index[1]:index[2])))
+      final <- c(temp1,.rev)
+    }else{
+      temp1 <- list.subset(vector, c(1:(index[1]-1)))
+      temp2 <- list.subset(vector, c((index[2]+1):length(vector)))
+      .rev <- rev(list.subset(vector, c(index[1]:index[2])))
+      final <- c(temp1, .rev, temp2)
     }
-    temp <- vectorM.[Find]
-    vectorM.[Find] <- vectorM.[Sind]
-    vectorM.[Sind] <- temp
-    return(vectorM.)
-  } # function that swap 2 random tasks
+    return(final)
+  }
   
   Mutation <- function(Population){
     for(i in 1:length(Population)){
       .rand <- runif(1,0,1)
       if(.rand < p.mut){ # check probability of the mutation
-        tempR <- sample(1:N,2,replace = F) # generate two random chromosomes
-        Population[[i]] <- Swap(Population[[i]],tempR) # swap them (mutate)
+        Population[[i]] <- Swap(Population[[i]]) # swap them (mutate)
       }else{
         next
       }
@@ -153,10 +144,10 @@ nmain <- function(.name,.k,.POP){
     tempPOP <- Population 
     if(.rand < p.recomb){ # check probability of the recombination
       .crossPMX <- PMX(tempPOP) 
-      .crossPMX <- ListFromListOfList(.crossPMX)
+      .crossPMX <- list.flatten(.crossPMX)
       temp <- Mutation(.crossPMX)
       # .crossOX <- OX(Population) # rekombinacja typu OX
-      # .crossOX <- ListFromListOfList(.crossOX)
+      # .crossOX <- list.flatten(.crossOX)
       # temp <- Mutation(.crossOX) #mutacja
       tempF <- TournamentSelection(temp) # select the best kids
       test <- c(Population,tempF) # add them to parents
@@ -195,49 +186,49 @@ nmain <- function(.name,.k,.POP){
         dE <- tempMIN - curMIN 
         if(dE < 0){ # if we found better scheduling time
           curMIN <<- tempMIN # override with the new optimal scheduling time
-          cat("Currently the best = ", curMIN,"\n", file = "output.txt", append = TRUE)
+          cat("Currently the best = ", curMIN,"\n", file = "output_TSP.txt", append = TRUE)
           FinalSchedule <- BestScheduling(.new) # save schedule
         }else{
-          cat("No better solution for the generation = ", i, "\n", file = "output.txt", append = TRUE)
+          cat("No better solution for the generation = ", i, "\n", file = "output_TSP.txt", append = TRUE)
         }
       }else{
-        if(i >= (k*0.2)){ # the point at which we began to change the probability of mutation and recombination
-          p.mut <<- p.mut + 0.005
-          p.recomb <<- p.recomb - 0.005
+        if(i >= (k*0.5)){ # the point at which we began to change the probability of mutation and recombination
+          p.mut <<- p.mut + (0.75/(k*0.5))
+          p.recomb <<- p.recomb - (0.65/(k*0.5))
         }
         .new <- Genetic(.new)
         tempMIN <- BestInPopulation(.new)
         dE <- tempMIN - curMIN
         if(dE < 0){
           curMIN <<- tempMIN
-          cat("Currently the best = ", curMIN,"\n", file = "output.txt", append = TRUE)
+          cat("Currently the best = ", curMIN,"\n", file = "output_TSP.txt", append = TRUE)
           FinalSchedule <- BestScheduling(.new)
         }else{
-          cat("No better solution for the generation = ", i, "\n", file = "output.txt", append = TRUE)
+          cat("No better solution for the generation = ", i, "\n", file = "output_TSP.txt", append = TRUE)
         }
       }
     }
     return(FinalSchedule)
   }
   
-  cat("Current file = ", name, "\n", file = "output.txt", append = TRUE)
-  cat("Output for the number of iterations = ",k, "\n", file = "output.txt", append = TRUE)
-  cat("Output for the number of persons in population = ",POP, "\n", file = "output.txt", append = TRUE)
+  cat("Current file = ", name, "\n", file = "output_TSP.txt", append = TRUE)
+  cat("Output for the number of iterations = ",k, "\n", file = "output_TSP.txt", append = TRUE)
+  cat("Output for the number of persons in population = ",POP, "\n", file = "output_TSP.txt", append = TRUE)
   FirstPopulation <- FirstGenerationOFPopulation() # generate first population
   curMIN <<- BestInPopulation(FirstPopulation) # the best schedule time for the first population
-  cat("Optimal schedule time for the start population = ",curMIN, "\n", file = "output.txt", append = TRUE)
+  cat("Optimal schedule time for the start population = ",curMIN, "\n", file = "output_TSP.txt", append = TRUE)
   .go <- main(FirstPopulation) # run program
-  cat("Optimal schedule", "\n", file = "output.txt", append = TRUE)
-  capture.output(.go, file = "output.txt", append = TRUE)
+  cat("Optimal schedule", "\n", file = "output_TSP.txt", append = TRUE)
+  capture.output(.go, file = "output_TSP.txt", append = TRUE)
   print("end")
 }
 
-Names <- c("Dane_S2_50_10.csv","Dane_S2_100_20.csv","Dane_S2_200_20.csv")
-niter <- c(100,500,1000)
+Names <- c("TSP_127.csv")
+niter <- c(10000)
 POP = 100
 
 for(i in 1:length(Names)){
-  for(j in 1:length(Names)){
+  for(j in 1:length(niter)){
     nmain(Names[i],niter[j],POP)
   }
 }
