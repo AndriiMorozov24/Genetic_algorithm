@@ -10,8 +10,8 @@ nmain <- function(.name,.k,.POP){
   N = nrow(df) # number of tasks
   POP = .POP # number of "persons" in population
   k = .k # number of iterations
-  p.mut <<- 0.05 # probability of the mutation
-  p.recomb <<- 0.8 # probability of the recombination
+  p.mut <<- 0.01 # probability of the mutation
+  p.recomb <<- 0.9 # probability of the recombination
   
   Fitness <- function(.vector){
     sum <- 0
@@ -193,8 +193,8 @@ nmain <- function(.name,.k,.POP){
         }
       }else{
         if(i >= (k*0.5)){ # the point at which we began to change the probability of mutation and recombination
-          p.mut <<- p.mut + (0.75/(k*0.5))
-          p.recomb <<- p.recomb - (0.65/(k*0.5))
+          p.mut <<- p.mut + (0.09/(k*0.5))
+          p.recomb <<- p.recomb - (0.3/(k*0.5))
         }
         .new <- Genetic(.new)
         tempMIN <- BestInPopulation(.new)
@@ -223,13 +223,13 @@ nmain <- function(.name,.k,.POP){
   print("end")
 }
 
-Names <- c("TSP_127.csv")
-niter <- c(10000)
-POP = 100
+Names <- c("TSP_48.csv","TSP_76.csv","TSP_127.csv")
+niter <- 1000
+POP <- c(250,500,1000)
 
 for(i in 1:length(Names)){
-  for(j in 1:length(niter)){
-    nmain(Names[i],niter[j],POP)
+  for(j in 1:length(POP)){
+    nmain(Names[i],niter,POP[j])
   }
 }
 
